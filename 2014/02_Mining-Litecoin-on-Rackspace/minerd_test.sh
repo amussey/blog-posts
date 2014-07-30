@@ -1,13 +1,30 @@
 #!/bin/bash
-# This test was designed to be run on Ubuntu 13.04
+# This test was designed to be run on Ubuntu 13.04,
+# but should be generally compatible with any distro.
 
 sudo apt-get update
 sudo apt-get upgrade -y
-sudo apt-get install curl zip vim timeout -y
+sudo apt-get install zip -y
+sudo apt-get install vim -y
+sudo apt-get install timeout -y
+
 mkdir ~/ltc
 cd ~/ltc
-curl -O http://sketch.amussey.com/pc.tar.gz
-tar -xvf pc.tar.gz
+
+if [[ "`uname -m`" = "x86_64" ]] ; then
+    wget 'http://downloads.sourceforge.net/project/cpuminer/pooler-cpuminer-2.3.2-linux-x86_64.tar.gz'
+    tar -xvf pooler-cpuminer-2.3.2-linux-x86_64.tar.gz
+    rm pooler-cpuminer-2.3.2-linux-x86_64.tar.gz
+    chmod +x miner
+    cat /proc/cpuinfo > 64-bit.txt
+else
+    wget 'http://downloads.sourceforge.net/project/cpuminer/pooler-cpuminer-2.3.2-linux-x86.tar.gz'
+    tar -xvf pooler-cpuminer-2.3.2-linux-x86.tar.gz
+    rm pooler-cpuminer-2.3.2-linux-x86.tar.gz
+    chmod +x miner
+    cat /proc/cpuinfo > 32-bit.txt
+fi
+
 
 echo "Now running with 1 thread"
 timeout 300s ./minerd --benchmark -t 1  2> minerd_01_thread.txt
@@ -58,8 +75,4 @@ echo "Now running with 16 threads"
 timeout 300s ./minerd --benchmark -t 16 2> minerd_16_thread.txt
 
 
-cat /proc/cpuinfo > cpuinfo.txt
-
-
-zip $HOSTNAME.zip *.txt
-scp $HOSTNAME.zip root@sketch.amussey.com:~
+zip ~/$HOSTNAME-ltc_results.zip *.txt
