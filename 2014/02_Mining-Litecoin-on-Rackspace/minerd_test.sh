@@ -12,16 +12,16 @@ mkdir ~/ltc
 cd ~/ltc
 
 if [[ "`uname -m`" = "x86_64" ]] ; then
-    wget 'http://downloads.sourceforge.net/project/cpuminer/pooler-cpuminer-2.3.2-linux-x86_64.tar.gz'
-    tar -xvf pooler-cpuminer-2.3.2-linux-x86_64.tar.gz
-    rm pooler-cpuminer-2.3.2-linux-x86_64.tar.gz
-    chmod +x miner
+    wget 'http://downloads.sourceforge.net/project/cpuminer/pooler-cpuminer-2.4-linux-x86_64.tar.gz'
+    tar -xvf pooler-cpuminer-2.4-linux-x86_64.tar.gz
+    rm pooler-cpuminer-2.4-linux-x86_64.tar.gz
+    chmod +x minerd
     cat /proc/cpuinfo > 64-bit.txt
 else
-    wget 'http://downloads.sourceforge.net/project/cpuminer/pooler-cpuminer-2.3.2-linux-x86.tar.gz'
-    tar -xvf pooler-cpuminer-2.3.2-linux-x86.tar.gz
-    rm pooler-cpuminer-2.3.2-linux-x86.tar.gz
-    chmod +x miner
+    wget 'http://downloads.sourceforge.net/project/cpuminer/pooler-cpuminer-2.4-linux-x86.tar.gz'
+    tar -xvf pooler-cpuminer-2.4-linux-x86.tar.gz
+    rm pooler-cpuminer-2.4-linux-x86.tar.gz
+    chmod +x minerd
     cat /proc/cpuinfo > 32-bit.txt
 fi
 
