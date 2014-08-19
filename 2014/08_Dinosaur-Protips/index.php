@@ -1,5 +1,5 @@
 <?php
-$tips_url = "https://raw.githubusercontent.com/amussey/blog-posts/master/2014/08_Dinosaur-Pro-Tips/";
+$tips_url = "https://raw.githubusercontent.com/amussey/blog-posts/master/2014/08_Dinosaur-Protips/tips.txt";
 
 
 $tips = @file_get_contents($tips_url);
