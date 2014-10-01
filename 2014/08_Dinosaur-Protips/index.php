@@ -41,10 +41,30 @@ $tip = $tips[rand(0, count($tips)-1)];
         font-size: 50px;
         text-align: center;
     }
+    #bottombox {
+        font-size: 8px;
+        width: 95%;
+        float:left;
+        text-align: right;
+        font-family: 'open sans',arial,sans-serif;
+
+    }
+    a {
+        text-decoration: underline;
+        color: #ddd;
+    }
     </style>
 </head>
 <body>
     <div id="leftbox" class="box"><?=$tip ?></div>
     <img id="rightbox" class="box" src="http://i.imgur.com/ftCSAX2.gif">
+    <div id="bottombox">
+        Want to submit a protip? Make a pull request <a href="https://github.com/amussey/blog-posts/blob/master/2014/08_Dinosaur-Protips/tips.txt">here</a>!
+    </div>
+    <script>
+        setTimeout(function() {
+            location.reload();
+        }, 30000);
+    </script>
 </body>
 </html>
