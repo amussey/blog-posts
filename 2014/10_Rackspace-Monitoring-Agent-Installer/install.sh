@@ -172,8 +172,17 @@ elif [[ "$YOUR_DISTRO" =~ "Red Hat Enterprise " ]] && [[ "$YOUR_DISTRO" =~ " rel
     sudo /sbin/service rackspace-monitoring-agent start
 elif [[ "$YOUR_DISTRO" =~ "Red Hat Enterprise " ]] && [[ "$YOUR_DISTRO" =~ " release 7" ]] ; then
     echo "Red Hat Enterprise 7"
-    echo "Unfortunately, your operating system is not yet supported by the Cloud Monitoring Agent."
-    exit 1
+    curl https://monitoring.api.rackspacecloud.com/pki/agent/redhat-7.asc > /tmp/signing-key.asc
+    sudo rpm --import /tmp/signing-key.asc
+    sudo echo "[rackspace]" > /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo echo "name=Rackspace Monitoring" >> /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo echo "baseurl=http://stable.packages.cloudmonitoring.rackspace.com/redhat-7-x86_64" >> /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo echo "enabled=1" >> /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo yum install rackspace-monitoring-agent -y
+
+    sudo /sbin/service rackspace-monitoring-agent stop
+    sudo rackspace-monitoring-agent --setup --username "$RAX_USERNAME" --apikey "$RAX_APIKEY" --production
+    sudo /sbin/service rackspace-monitoring-agent start
 elif [[ "$YOUR_DISTRO" =~ "CentOS " ]] && [[ "$YOUR_DISTRO" =~ "release 5" ]] ; then
     echo "CentOS 5"
     curl https://monitoring.api.rackspacecloud.com/pki/agent/centos-5.asc > /tmp/signing-key.asc
@@ -202,8 +211,17 @@ elif [[ "$YOUR_DISTRO" =~ "CentOS " ]] && [[ "$YOUR_DISTRO" =~ "release 6" ]] ; 
     sudo /sbin/service rackspace-monitoring-agent start
 elif [[ "$YOUR_DISTRO" =~ "CentOS " ]] && [[ "$YOUR_DISTRO" =~ "release 7" ]] ; then
     echo "CentOS 7"
-    echo "Unfortunately, your operating system is not yet supported by the Cloud Monitoring Agent."
-    exit 1
+    curl https://monitoring.api.rackspacecloud.com/pki/agent/centos-7.asc > /tmp/signing-key.asc
+    sudo rpm --import /tmp/signing-key.asc
+    sudo echo "[rackspace]" > /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo echo "name=Rackspace Monitoring" >> /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo echo "baseurl=http://stable.packages.cloudmonitoring.rackspace.com/centos-7-x86_64" >> /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo echo "enabled=1" >> /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo yum install rackspace-monitoring-agent -y
+
+    sudo /sbin/service rackspace-monitoring-agent stop
+    sudo rackspace-monitoring-agent --setup --username "$RAX_USERNAME" --apikey "$RAX_APIKEY" --production
+    sudo /sbin/service rackspace-monitoring-agent start
 fi
 
 

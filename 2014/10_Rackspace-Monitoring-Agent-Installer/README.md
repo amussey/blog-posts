@@ -23,3 +23,21 @@ This script currently supports and has been tested with the following server fla
  - Ubuntu 10.04
  - Debian 7
  - Debian 6
+ - Fedora 20
+ - Fedora 19
+ - Red Hat Enterprise 7
+ - Red Hat Enterprise 6
+ - Red Hat Enterprise 5
+ - CentOS 7
+ - CentOS 6
+ - CentOS 5
+
+The script additionally supports the following server flavors, though they have not been tested:
+
+ - Ubuntu 13.10
+ - Ubuntu 13.04
+ - Ubuntu 12.10
+ - Ubuntu 11.10
+ - Ubuntu 11.04
+ - Fedora 17
+ - Fedora 16
