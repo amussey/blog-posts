@@ -10,4 +10,6 @@ You will need:
 
 To run this script, run the following command from your server:
 
-    \curl -sSL https://raw.githubusercontent.com/amussey/blog-posts/master/2014/10_Rackspace-Monitoring-Agent-Installer/install.sh | bash
+    \curl -sSL https://raw.githubusercontent.com/amussey/blog-posts/master/2014/10_Rackspace-Monitoring-Agent-Installer/install.sh | sudo bash
+
+This script requires root permissions to run successfully.  **PLEASE [view the contents](https://github.com/amussey/blog-posts/blob/master/2014/10_Rackspace-Monitoring-Agent-Installer/install.sh) of the script before blindly curling and running it!**
