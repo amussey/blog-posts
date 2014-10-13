@@ -57,6 +57,10 @@ if [[ "$YOUR_DISTRO" =~ "Ubuntu " ]] ; then
     echo "Performing apt-get update"
     sudo apt-get update > /dev/null
     sudo apt-get install rackspace-monitoring-agent -y
+
+    sudo service rackspace-monitoring-agent stop
+    sudo rackspace-monitoring-agent --setup --username "$RAX_USERNAME" --apikey "$RAX_APIKEY" --production
+    sudo service rackspace-monitoring-agent start
 elif [ "$YOUR_DISTRO" = "Debian GNU/Linux 6.0" ] ; then
     echo "Debian 6 (Squeeze)"
     command -v curl >/dev/null 2>&1 || { echo "Installing curl.  Performing apt-get update." ; sudo apt-get update > /dev/null ; sudo apt-get install curl -y ; }
@@ -69,7 +73,6 @@ elif [ "$YOUR_DISTRO" = "Debian GNU/Linux 6.0" ] ; then
     sudo /etc/init.d/rackspace-monitoring-agent stop
     sudo rackspace-monitoring-agent --setup --username "$RAX_USERNAME" --apikey "$RAX_APIKEY" --production
     sudo /etc/init.d/rackspace-monitoring-agent start
-    exit
 elif [ "$YOUR_DISTRO" = "Debian GNU/Linux 7" ] ; then
     echo "Debian 7 (Wheezy)"
     command -v curl >/dev/null 2>&1 || { echo "Installing curl.  Performing apt-get update." ; sudo apt-get update > /dev/null ; sudo apt-get install curl -y ; }
@@ -78,22 +81,127 @@ elif [ "$YOUR_DISTRO" = "Debian GNU/Linux 7" ] ; then
     echo "Performing apt-get update"
     sudo apt-get update > /dev/null
     sudo apt-get install rackspace-monitoring-agent -y
+
+    sudo service rackspace-monitoring-agent stop
+    sudo rackspace-monitoring-agent --setup --username "$RAX_USERNAME" --apikey "$RAX_APIKEY" --production
+    sudo service rackspace-monitoring-agent start
 elif [[ "$YOUR_DISTRO" =~ "Debian GNU/Linux jessie" ]] ; then
     echo "Debian Jessie"
-    echo "Unfortunately, your operating system is not yet supported by the Rackspace Monitoring Agent."
+    echo "Unfortunately, your operating system is not yet supported by the Cloud Monitoring Agent."
     exit 1
+elif [[ "$YOUR_DISTRO" =~ "Fedora release 16" ]] ; then
+    echo "Fedora 16"
+    curl https://monitoring.api.rackspacecloud.com/pki/agent/fedora-16.asc > /tmp/signing-key.asc
+    sudo rpm --import /tmp/signing-key.asc
+    sudo echo "[rackspace]" >> /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo echo "name=Rackspace Monitoring" >> /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo echo "baseurl=http://stable.packages.cloudmonitoring.rackspace.com/fedora-16-x86_64" >> /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo echo "enabled=1" >> /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo yum install rackspace-monitoring-agent -y
+
+    sudo /sbin/service rackspace-monitoring-agent stop
+    sudo rackspace-monitoring-agent --setup --username "$RAX_USERNAME" --apikey "$RAX_APIKEY" --production
+    sudo /sbin/service rackspace-monitoring-agent start
+elif [[ "$YOUR_DISTRO" =~ "Fedora release 17" ]] ; then
+    echo "Fedora 17"
+    curl https://monitoring.api.rackspacecloud.com/pki/agent/fedora-17.asc > /tmp/signing-key.asc
+    sudo rpm --import /tmp/signing-key.asc
+    sudo echo "[rackspace]" >> /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo echo "name=Rackspace Monitoring" >> /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo echo "baseurl=http://stable.packages.cloudmonitoring.rackspace.com/fedora-17-x86_64" >> /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo echo "enabled=1" >> /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo yum install rackspace-monitoring-agent -y
+
+    sudo /sbin/service rackspace-monitoring-agent stop
+    sudo rackspace-monitoring-agent --setup --username "$RAX_USERNAME" --apikey "$RAX_APIKEY" --production
+    sudo /sbin/service rackspace-monitoring-agent start
 elif [[ "$YOUR_DISTRO" =~ "Fedora release 19" ]] ; then
     echo "Fedora 19"
+    curl https://monitoring.api.rackspacecloud.com/pki/agent/fedora-19.asc > /tmp/signing-key.asc
+    sudo rpm --import /tmp/signing-key.asc
+    sudo echo "[rackspace]" >> /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo echo "name=Rackspace Monitoring" >> /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo echo "baseurl=http://stable.packages.cloudmonitoring.rackspace.com/fedora-19-x86_64" >> /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo echo "enabled=1" >> /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo yum install rackspace-monitoring-agent -y
+
+    sudo /sbin/service rackspace-monitoring-agent stop
+    sudo rackspace-monitoring-agent --setup --username "$RAX_USERNAME" --apikey "$RAX_APIKEY" --production
+    sudo /sbin/service rackspace-monitoring-agent start
 elif [[ "$YOUR_DISTRO" =~ "Fedora release 20" ]] ; then
     echo "Fedora 20"
+    curl https://monitoring.api.rackspacecloud.com/pki/agent/fedora-20.asc > /tmp/signing-key.asc
+    sudo rpm --import /tmp/signing-key.asc
+    sudo echo "[rackspace]" >> /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo echo "name=Rackspace Monitoring" >> /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo echo "baseurl=http://stable.packages.cloudmonitoring.rackspace.com/fedora-20-x86_64" >> /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo echo "enabled=1" >> /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo yum install rackspace-monitoring-agent -y
+
+    sudo /sbin/service rackspace-monitoring-agent stop
+    sudo rackspace-monitoring-agent --setup --username "$RAX_USERNAME" --apikey "$RAX_APIKEY" --production
+    sudo /sbin/service rackspace-monitoring-agent start
 elif [[ "$YOUR_DISTRO" =~ "Red Hat Enterprise Linux Server release 5" ]] ; then
-    echo "Fedora 19"
-elif [[ "$YOUR_DISTRO" =~ "CentOS release 6.5" ]] ; then
-    echo "CentOS 6.5"
+    echo "Red Hat Enterprise 5"
+    curl https://monitoring.api.rackspacecloud.com/pki/agent/redhat-5.asc > /tmp/signing-key.asc
+    sudo rpm --import /tmp/signing-key.asc
+    sudo echo "[rackspace]" >> /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo echo "name=Rackspace Monitoring" >> /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo echo "baseurl=http://stable.packages.cloudmonitoring.rackspace.com/redhat-5-x86_64 " >> /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo echo "enabled=1" >> /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo yum install rackspace-monitoring-agent -y
+
+    sudo /sbin/service rackspace-monitoring-agent stop
+    sudo rackspace-monitoring-agent --setup --username "$RAX_USERNAME" --apikey "$RAX_APIKEY" --production
+    sudo /sbin/service rackspace-monitoring-agent start
+elif [[ "$YOUR_DISTRO" =~ "Red Hat Enterprise Linux Server release 6" ]] ; then
+    echo "Red Hat Enterprise 6"
+    curl https://monitoring.api.rackspacecloud.com/pki/agent/redhat-6.asc > /tmp/signing-key.asc
+    sudo rpm --import /tmp/signing-key.asc
+    sudo echo "[rackspace]" >> /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo echo "name=Rackspace Monitoring" >> /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo echo "baseurl=http://stable.packages.cloudmonitoring.rackspace.com/redhat-6-x86_64" >> /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo echo "enabled=1" >> /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo yum install rackspace-monitoring-agent -y
+
+    sudo /sbin/service rackspace-monitoring-agent stop
+    sudo rackspace-monitoring-agent --setup --username "$RAX_USERNAME" --apikey "$RAX_APIKEY" --production
+    sudo /sbin/service rackspace-monitoring-agent start
+elif [[ "$YOUR_DISTRO" =~ "Red Hat Enterprise Linux Server release 7" ]] ; then
+    echo "Red Hat Enterprise 7"
+    echo "Unfortunately, your operating system is not yet supported by the Cloud Monitoring Agent."
+    exit 1
+elif [[ "$YOUR_DISTRO" =~ "CentOS release 5" ]] ; then
+    echo "CentOS 5"
+    curl https://monitoring.api.rackspacecloud.com/pki/agent/centos-5.asc > /tmp/signing-key.asc
+    sudo rpm --import /tmp/signing-key.asc
+    sudo echo "[rackspace]" >> /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo echo "name=Rackspace Monitoring" >> /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo echo "baseurl=http://stable.packages.cloudmonitoring.rackspace.com/centos-5-x86_64" >> /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo echo "enabled=1" >> /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo yum install rackspace-monitoring-agent -y
+
+    sudo /sbin/service rackspace-monitoring-agent stop
+    sudo rackspace-monitoring-agent --setup --username "$RAX_USERNAME" --apikey "$RAX_APIKEY" --production
+    sudo /sbin/service rackspace-monitoring-agent start
+elif [[ "$YOUR_DISTRO" =~ "CentOS release 6" ]] ; then
+    echo "CentOS 6"
+    curl https://monitoring.api.rackspacecloud.com/pki/agent/centos-6.asc > /tmp/signing-key.asc
+    sudo rpm --import /tmp/signing-key.asc
+    sudo echo "[rackspace]" >> /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo echo "name=Rackspace Monitoring" >> /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo echo "baseurl=http://stable.packages.cloudmonitoring.rackspace.com/centos-6-x86_64" >> /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo echo "enabled=1" >> /etc/yum.repos.d/rackspace-cloud-monitoring.repo
+    sudo yum install rackspace-monitoring-agent -y
+
+    sudo /sbin/service rackspace-monitoring-agent stop
+    sudo rackspace-monitoring-agent --setup --username "$RAX_USERNAME" --apikey "$RAX_APIKEY" --production
+    sudo /sbin/service rackspace-monitoring-agent start
+elif [[ "$YOUR_DISTRO" =~ "CentOS release 7" ]] ; then
+    echo "CentOS 7"
+    echo "Unfortunately, your operating system is not yet supported by the Cloud Monitoring Agent."
+    exit 1
 fi
 
-sudo service rackspace-monitoring-agent stop
-sudo rackspace-monitoring-agent --setup --username "$RAX_USERNAME" --apikey "$RAX_APIKEY" --production
-sudo service rackspace-monitoring-agent start
 
 echo -e "\n\nMonitoring agent install complete!  The agent should now be running on your server.\n\nHappy monitoring!"
