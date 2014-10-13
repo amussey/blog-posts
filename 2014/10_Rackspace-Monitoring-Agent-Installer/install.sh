@@ -65,6 +65,11 @@ elif [ "$YOUR_DISTRO" = "Debian GNU/Linux 6.0" ] ; then
     echo "Performing apt-get update"
     sudo apt-get update > /dev/null
     sudo apt-get install rackspace-monitoring-agent -y
+
+    sudo /etc/init.d/rackspace-monitoring-agent stop
+    sudo rackspace-monitoring-agent --setup --username "$RAX_USERNAME" --apikey "$RAX_APIKEY" --production
+    sudo /etc/init.d/rackspace-monitoring-agent start
+    exit
 elif [ "$YOUR_DISTRO" = "Debian GNU/Linux 7" ] ; then
     echo "Debian 7 (Wheezy)"
     command -v curl >/dev/null 2>&1 || { echo "Installing curl.  Performing apt-get update." ; sudo apt-get update > /dev/null ; sudo apt-get install curl -y ; }
@@ -92,4 +97,3 @@ sudo rackspace-monitoring-agent --setup --username "$RAX_USERNAME" --apikey "$RA
 sudo service rackspace-monitoring-agent start
 
 echo -e "\n\nMonitoring agent install complete!  The agent should now be running on your server.\n\nHappy monitoring!"
-

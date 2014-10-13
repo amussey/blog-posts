@@ -21,3 +21,5 @@ This script currently supports and has been tested with the following server fla
  - Ubuntu 14.04 (Standard & PVHVM)
  - Ubuntu 12.04 (Standard & PVHVM)
  - Ubuntu 10.04
+ - Debian 7
+ - Debian 6
