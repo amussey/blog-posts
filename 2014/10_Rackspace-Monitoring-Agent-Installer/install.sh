@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 echo -e "Rackspace Monitoring Agent Installer\n"
 
@@ -27,9 +27,7 @@ echo -en "\nReady to install the monitoring agent.  Press [ENTER] to proceed."
 read
 
 if [[ "$YOUR_DISTRO" =~ "Ubuntu " ]] ; then
-    echo "Performing apt-get update"
-    sudo apt-get update > /dev/null
-    sudo apt-get install curl -y
+    command -v curl >/dev/null 2>&1 || { echo "Installing curl.  Performing apt-get update." ; sudo apt-get update > /dev/null ; sudo apt-get install curl -y ; }
     if [[ "$YOUR_DISTRO" =~ "Ubuntu 10.04" ]] ; then
         echo "Ubuntu 10.04"
         sudo sh -c 'echo "deb http://stable.packages.cloudmonitoring.rackspace.com/ubuntu-10.04-x86_64 cloudmonitoring main" > /etc/apt/sources.list.d/rackspace-monitoring-agent.list'
@@ -61,9 +59,7 @@ if [[ "$YOUR_DISTRO" =~ "Ubuntu " ]] ; then
     sudo apt-get install rackspace-monitoring-agent -y
 elif [ "$YOUR_DISTRO" = "Debian GNU/Linux 6.0" ] ; then
     echo "Debian 6 (Squeeze)"
-    echo "Performing apt-get update"
-    sudo apt-get update > /dev/null
-    sudo apt-get install curl -y
+    command -v curl >/dev/null 2>&1 || { echo "Installing curl.  Performing apt-get update." ; sudo apt-get update > /dev/null ; sudo apt-get install curl -y ; }
     sudo sh -c 'echo "deb http://stable.packages.cloudmonitoring.rackspace.com/debian-squeeze-x86_64 cloudmonitoring main" > /etc/apt/sources.list.d/rackspace-monitoring-agent.list'
     curl https://monitoring.api.rackspacecloud.com/pki/agent/linux.asc | sudo apt-key add -
     echo "Performing apt-get update"
@@ -71,9 +67,7 @@ elif [ "$YOUR_DISTRO" = "Debian GNU/Linux 6.0" ] ; then
     sudo apt-get install rackspace-monitoring-agent -y
 elif [ "$YOUR_DISTRO" = "Debian GNU/Linux 7" ] ; then
     echo "Debian 7 (Wheezy)"
-    echo "Performing apt-get update"
-    sudo apt-get update > /dev/null
-    sudo apt-get install curl -y
+    command -v curl >/dev/null 2>&1 || { echo "Installing curl.  Performing apt-get update." ; sudo apt-get update > /dev/null ; sudo apt-get install curl -y ; }
     sudo sh -c 'echo "deb http://stable.packages.cloudmonitoring.rackspace.com/debian-wheezy-x86_64 cloudmonitoring main" > /etc/apt/sources.list.d/rackspace-monitoring-agent.list'
     curl https://monitoring.api.rackspacecloud.com/pki/agent/linux.asc | sudo apt-key add -
     echo "Performing apt-get update"
