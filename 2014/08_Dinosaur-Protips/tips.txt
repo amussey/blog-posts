@@ -1,2 +1,3 @@
 And remember, don't force push to master.
 That's what happens when you don't #!%*@&$ paddle.
+Don't include the trailing backslash when deleting a symlink to a folder.<br><br><code>rm link</code> deletes the symlink.<br><code>rm link/</code> deletes the folder.
