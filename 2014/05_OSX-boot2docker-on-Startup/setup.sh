@@ -17,7 +17,7 @@ curl https://raw.githubusercontent.com/amussey/blog-posts/master/2014/05_OSX-boo
 
 # Load the launcher to make sure docker is up and running on boot.
 
-curl https://raw.githubusercontent.com/amussey/blog-posts/master/2014/05_OSX-boot2docker-on-Startup/com.user.boot2docker.plist > launchctl load ~/Library/LaunchAgents/com.user.boot2docker.plist
+curl https://raw.githubusercontent.com/amussey/blog-posts/master/2014/05_OSX-boot2docker-on-Startup/com.user.boot2docker.plist > ~/Library/LaunchAgents/com.user.boot2docker.plist
 launchctl load ~/Library/LaunchAgents/com.user.boot2docker.plist
 
 if [ $(cat ~/.bash_profile | grep "eval \`docker-osx env\`" | wc -l) -eq 1 ] ; then 
